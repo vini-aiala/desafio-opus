@@ -15,12 +15,12 @@ public class Answer {
 	@ManyToOne
 	private Question question;
 	@ManyToOne
-	private User author;
+	private Author author;
 
-	public Answer(String text, Question question, User user) {
+	public Answer(String text, Question question, Author author) {
 		this.text = text;
 		this.question = question;
-		this.author = user;
+		this.author = author;
 	}
 
 	public Long getId() {
@@ -47,11 +47,11 @@ public class Answer {
 		this.question = question;
 	}
 
-	public User getAuthor() {
+	public Author getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(User author) {
+	public void setAuthor(Author author) {
 		this.author = author;
 	}
 }

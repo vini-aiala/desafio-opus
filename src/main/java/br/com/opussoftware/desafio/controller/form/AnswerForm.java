@@ -1,13 +1,12 @@
 package br.com.opussoftware.desafio.controller.form;
 
 import br.com.opussoftware.desafio.model.Answer;
+import br.com.opussoftware.desafio.model.Author;
 import br.com.opussoftware.desafio.model.Question;
-import br.com.opussoftware.desafio.model.User;
 import br.com.opussoftware.desafio.repository.AnswerRepository;
 import br.com.opussoftware.desafio.repository.QuestionRepository;
 import br.com.opussoftware.desafio.repository.UserRepository;
 
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
@@ -21,8 +20,8 @@ public class AnswerForm {
 
     public Answer assemble(QuestionRepository questionRepository, UserRepository userRepository) {
         Question question = questionRepository.getById(questionId);
-        User user = userRepository.getById(authorId);
-        return new Answer(text, question, user);
+        Author author = userRepository.getById(authorId);
+        return new Answer(text, question, author);
     }
 
     public Answer update(Long id, AnswerRepository answerRepository) {

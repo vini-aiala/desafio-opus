@@ -1,8 +1,8 @@
 package br.com.opussoftware.desafio.controller.form;
 
+import br.com.opussoftware.desafio.model.Author;
 import br.com.opussoftware.desafio.model.Question;
 import br.com.opussoftware.desafio.model.Subject;
-import br.com.opussoftware.desafio.model.User;
 import br.com.opussoftware.desafio.repository.QuestionRepository;
 import br.com.opussoftware.desafio.repository.SubjectRepository;
 import br.com.opussoftware.desafio.repository.UserRepository;
@@ -22,8 +22,8 @@ public class QuestionForm {
 
     public Question assemble(SubjectRepository subjectRepository, UserRepository userRepository) {
         Subject subject = subjectRepository.getById(subjectId);
-        User user = userRepository.getById(userId);
-        return new Question(title, text, subject, user);
+        Author author = userRepository.getById(userId);
+        return new Question(title, text, subject, author);
     }
 
     public Question update(Long id, QuestionRepository questionRepository) {
