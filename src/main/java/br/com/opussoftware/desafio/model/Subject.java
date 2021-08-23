@@ -10,11 +10,13 @@ public class Subject {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String category;
+	private Category category;
+
+	public Subject() {}
 
 	public Subject(String name, String category) {
 		this.name = name;
-		this.category = category;
+		this.category = Category.valueOf(category);
 	}
 
 	public Long getId() {
@@ -33,12 +35,12 @@ public class Subject {
 		this.name = name;
 	}
 
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
 	public void setCategory(String category) {
-		this.category = category;
+		Category.valueOf(category);
 	}
 
 }

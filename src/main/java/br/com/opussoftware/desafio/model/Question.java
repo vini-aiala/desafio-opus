@@ -24,13 +24,16 @@ public class Question {
 	private User author;
 	@ManyToOne
 	private Subject subject;
-	@OneToMany(mappedBy = "question")
-	private List<Answer> answers = new ArrayList<Answer>();
 
-	public Question(String title, String text, Subject subject) {
+	public Question(String title, String text, Subject subject, User author) {
 		this.title = title;
 		this.text = text;
 		this.subject = subject;
+		this.author = author;
+	}
+
+	public Question() {
+
 	}
 
 	public Long getId() {
@@ -79,14 +82,6 @@ public class Question {
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
-	}
-
-	public List<Answer> getAnswers() {
-		return answers;
-	}
-
-	public void setAnswers(List<Answer> answers) {
-		this.answers = answers;
 	}
 
 }

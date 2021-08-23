@@ -17,6 +17,12 @@ public class Answer {
 	@ManyToOne
 	private User author;
 
+	public Answer(String text, Question question, User user) {
+		this.text = text;
+		this.question = question;
+		this.author = user;
+	}
+
 	public Long getId() {
 		return id;
 	}
