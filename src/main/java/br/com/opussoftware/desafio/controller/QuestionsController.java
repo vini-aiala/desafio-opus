@@ -20,6 +20,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/question")
 public class QuestionsController {
 
     //https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html#beans-constructor-injection

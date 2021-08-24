@@ -18,6 +18,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/answer")
 public class AnswersController {
     //https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html#beans-constructor-injection
     private final QuestionRepository questionRepository;
