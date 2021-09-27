@@ -3,6 +3,7 @@ package br.com.opussoftware.desafio.controller;
 import br.com.opussoftware.desafio.controller.form.QuestionForm;
 import br.com.opussoftware.desafio.model.Category;
 import br.com.opussoftware.desafio.model.Question;
+import br.com.opussoftware.desafio.model.Subject;
 import br.com.opussoftware.desafio.repository.QuestionRepository;
 import br.com.opussoftware.desafio.repository.SubjectRepository;
 import br.com.opussoftware.desafio.repository.UserRepository;
@@ -40,6 +41,12 @@ public class QuestionsController {
     @GetMapping
     public Page<Question> listBySubject(@RequestParam Long subjectId, Pageable pageable) {
         return questionRepository.findBySubject_Id(subjectId, pageable);
+    }
+
+    @GetMapping(value = "/{id}")
+    public Question getById(@PathVariable String id) {
+        Optional<Question> optional = questionRepository.findById(Long.parseLong(id));
+        return optional.orElse(null);
     }
 
     @PostMapping
