@@ -2,13 +2,10 @@ package br.com.opussoftware.desafio.controller;
 
 import br.com.opussoftware.desafio.controller.form.AnswerForm;
 import br.com.opussoftware.desafio.model.Answer;
-import br.com.opussoftware.desafio.model.Answer;
 import br.com.opussoftware.desafio.repository.*;
 import br.com.opussoftware.desafio.repository.AnswerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +20,14 @@ import java.util.Optional;
 public class AnswersController {
     //https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html#beans-constructor-injection
     private final QuestionRepository questionRepository;
-    private final UserRepository userRepository;
+    private final AuthorRepository authorRepository;
     private final AnswerRepository answerRepository;
 
     public AnswersController(AnswerRepository answerRepository,
-                               UserRepository userRepository,
+                               AuthorRepository authorRepository,
                              QuestionRepository questionRepository) {
         this.answerRepository = answerRepository;
-        this.userRepository = userRepository;
+        this.authorRepository = authorRepository;
         this.questionRepository = questionRepository;
     }
 
@@ -42,7 +39,7 @@ public class AnswersController {
     @PostMapping
     @Transactional
     public ResponseEntity<Answer> createAnswers(@Valid AnswerForm form, UriComponentsBuilder uriBuilder) {
-        Answer answer = form.assemble(questionRepository, userRepository);
+        Answer answer = form.assemble(questionRepository, authorRepository);
         answerRepository.save(answer);
 
         URI uri = uriBuilder.path("/answers/{id}").buildAndExpand(answer.getId()).toUri();

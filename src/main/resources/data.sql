@@ -1,7 +1,7 @@
-insert into author(name, email) values
-                                    ('Igor Cavalcanti Fernandes', 'igor.fernandes@opus-software.com.br'),
-                                    ('Julia Sousa Ribeiro', 'julia.sousa@opus-software.com.br'),
-                                    ('Luana Oliveira Barbosa', 'luana.barbosa@opus-software.com.br');
+insert into author(name, email, password) values
+                                    ('Igor Cavalcanti Fernandes', 'igor.fernandes@opus-software.com.br', '$2a$10$qklkWEoT/uWcrdHjgGBEVOlVHOvxouCmTJr/ISr1uEGyVMno7IbZ.'),
+                                    ('Julia Sousa Ribeiro', 'julia.sousa@opus-software.com.br', '$2a$10$qklkWEoT/uWcrdHjgGBEVOlVHOvxouCmTJr/ISr1uEGyVMno7IbZ.'),
+                                    ('Luana Oliveira Barbosa', 'luana.barbosa@opus-software.com.br', '$2a$10$qklkWEoT/uWcrdHjgGBEVOlVHOvxouCmTJr/ISr1uEGyVMno7IbZ.');
 
 insert into subject(name, category) values
                                         ('Docker', 'INFRA_DEVOPS'),
