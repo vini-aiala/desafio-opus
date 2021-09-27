@@ -17,7 +17,7 @@ public class Author implements UserDetails {
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Profile> profiles = new ArrayList<Profile>();
+	private List<Profile> authorities = new ArrayList<Profile>();
 
 	public Long getId() {
 		return id;
@@ -45,7 +45,7 @@ public class Author implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.profiles;
+		return this.authorities;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package br.com.opussoftware.desafio.controller.form;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 public class LoginForm {
     private String email;
     private String password;
@@ -18,5 +20,9 @@ public class LoginForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UsernamePasswordAuthenticationToken build() {
+        return new UsernamePasswordAuthenticationToken(email, password);
     }
 }
