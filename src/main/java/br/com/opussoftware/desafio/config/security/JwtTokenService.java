@@ -13,7 +13,7 @@ import java.util.Date;
 @Service
 public class JwtTokenService {
 
-    @Value("${forum.jwt.secret}")
+    @Value("${desafio.jwt.secret}")
     private String secret;
 
     public String generate(Authentication authentication) {
@@ -27,7 +27,7 @@ public class JwtTokenService {
                 .setSubject(author.getId().toString())
                 .setIssuedAt(now)
                 .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.ES256, secret)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 

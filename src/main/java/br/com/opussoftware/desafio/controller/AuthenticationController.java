@@ -26,14 +26,14 @@ public class AuthenticationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> autenticate(@RequestBody @Valid LoginForm form) {
+    public ResponseEntity<?> authenticate(@RequestBody @Valid LoginForm form) {
         UsernamePasswordAuthenticationToken loginData = form.build();
 
         try {
             Authentication authentication = authManager.authenticate(loginData);
             String token = tokenService.generate(authentication);
 
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok().header("Authorization", token).build();
         } catch (AuthenticationException e) {
             return ResponseEntity.badRequest().build();
         }
