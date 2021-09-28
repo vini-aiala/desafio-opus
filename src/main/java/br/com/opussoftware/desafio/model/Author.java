@@ -16,8 +16,18 @@ public class Author implements UserDetails {
 	private String email;
 	private String password;
 
+	public Author(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Profile> authorities = new ArrayList<Profile>();
+
+	public Author() {
+
+	}
 
 	public Long getId() {
 		return id;
@@ -41,6 +51,10 @@ public class Author implements UserDetails {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
