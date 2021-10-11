@@ -32,14 +32,26 @@ public class AuthorsController {
         return null;
     }
 
+    private boolean emailExist(String email) {
+        return authorRepository.findByEmail(email).isPresent();
+    }
+
     @PostMapping
     @Transactional
-    public ResponseEntity<Author> createAuthor(@Valid AuthorForm form, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Author> createAuthor(@RequestBody @Valid AuthorForm form, UriComponentsBuilder uriBuilder) throws Exception {
         Author author = form.assemble();
-        authorRepository.save(author);
+        try {
+            if (emailExist(author.getEmail())) {
+                throw new Exception("Email já existente");
+            }
 
-        URI uri = uriBuilder.path("/author/{id}").buildAndExpand(author.getId()).toUri();
-        return ResponseEntity.created(uri).body(author);
+            authorRepository.save(author);
+
+            URI uri = uriBuilder.path("/author/{id}").buildAndExpand(author.getId()).toUri();
+            return ResponseEntity.created(uri).body(author);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/{id}")
