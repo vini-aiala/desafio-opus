@@ -5,7 +5,7 @@ import br.com.opussoftware.desafio.model.Question;
 import br.com.opussoftware.desafio.model.Subject;
 import br.com.opussoftware.desafio.repository.QuestionRepository;
 import br.com.opussoftware.desafio.repository.SubjectRepository;
-import br.com.opussoftware.desafio.repository.UserRepository;
+import br.com.opussoftware.desafio.repository.AuthorRepository;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -20,9 +20,9 @@ public class QuestionForm {
     @Positive
     private Long userId;
 
-    public Question assemble(SubjectRepository subjectRepository, UserRepository userRepository) {
+    public Question assemble(SubjectRepository subjectRepository, AuthorRepository authorRepository) {
         Subject subject = subjectRepository.getById(subjectId);
-        Author author = userRepository.getById(userId);
+        Author author = authorRepository.getById(userId);
         return new Question(title, text, subject, author);
     }
 
