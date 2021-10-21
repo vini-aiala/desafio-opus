@@ -18,10 +18,41 @@ public class AnswerForm {
     @Positive
     private Long authorId;
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
+    public Long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
+
     public Answer assemble(QuestionRepository questionRepository, AuthorRepository authorRepository) {
-        Question question = questionRepository.getById(questionId);
-        Author author = authorRepository.getById(authorId);
-        return new Answer(text, question, author);
+        try {
+            Question question = questionRepository.findById(questionId).orElseThrow(IllegalArgumentException::new);
+            Author author = authorRepository.findById(authorId).orElseThrow(IllegalArgumentException::new);
+            return new Answer(text, question, author);
+        } catch (IllegalArgumentException e) {
+            return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public Answer update(Long id, AnswerRepository answerRepository) {

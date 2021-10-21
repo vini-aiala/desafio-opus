@@ -23,6 +23,10 @@ public class Answer {
 		this.author = author;
 	}
 
+	public Answer() {
+
+	}
+
 	public Long getId() {
 		return id;
 	}

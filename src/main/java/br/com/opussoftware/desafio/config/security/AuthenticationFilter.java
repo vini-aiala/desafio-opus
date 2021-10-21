@@ -29,8 +29,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         if (valid) {
             Long id = tokenService.getAuthorId(token);
-            Author author = repository.getById(id);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(author, null, author.getAuthorities());
+            Author author = repository.findById(id).orElse(null);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    author, null, author != null ? author.getAuthorities() : null);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
