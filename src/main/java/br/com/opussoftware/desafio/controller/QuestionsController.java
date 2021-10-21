@@ -46,12 +46,16 @@ public class QuestionsController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Question> createQuestions(@Valid QuestionForm form, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Question> createQuestions(@RequestBody @Valid QuestionForm form, UriComponentsBuilder uriBuilder) {
         Question question = form.assemble(subjectRepository, authorRepository);
-        questionRepository.save(question);
+        if(question != null) {
+            questionRepository.save(question);
 
-        URI uri = uriBuilder.path("/questions/{id}").buildAndExpand(question.getId()).toUri();
-        return ResponseEntity.created(uri).body(question);
+            URI uri = uriBuilder.path("/questions/{id}").buildAndExpand(question.getId()).toUri();
+            return ResponseEntity.created(uri).body(question);
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}")
@@ -63,7 +67,7 @@ public class QuestionsController {
             return ResponseEntity.ok(question);
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("/{id}")
@@ -75,6 +79,6 @@ public class QuestionsController {
             return ResponseEntity.ok().build();
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().build();
     }
 }

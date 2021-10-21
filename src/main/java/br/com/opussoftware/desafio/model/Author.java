@@ -16,15 +16,14 @@ public class Author implements UserDetails {
 	private String name;
 	private String email;
 	private String password;
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Profile> authorities = new ArrayList<>();
 
 	public Author(String name, String email, String password) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Profile> authorities = new ArrayList<Profile>();
 
 	public Author() {
 
