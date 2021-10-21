@@ -38,10 +38,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/subject").permitAll()
                 .antMatchers(HttpMethod.GET, "/question").permitAll()
                 .antMatchers(HttpMethod.GET, "/question/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/answer").permitAll()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .antMatchers(HttpMethod.GET, "/author/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/author").permitAll()
+//                .antMatchers(HttpMethod.POST, "/question").permitAll() //TODO: REMOVER
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

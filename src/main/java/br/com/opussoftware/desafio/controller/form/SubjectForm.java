@@ -10,6 +10,23 @@ import javax.validation.constraints.NotBlank;
 public class SubjectForm {
     @NotBlank
     private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     @NotBlank
     private String categoryName;
 

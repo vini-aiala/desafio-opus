@@ -2,10 +2,10 @@ package br.com.opussoftware.desafio.controller;
 
 import br.com.opussoftware.desafio.controller.form.AnswerForm;
 import br.com.opussoftware.desafio.model.Answer;
+import br.com.opussoftware.desafio.model.Question;
+import br.com.opussoftware.desafio.model.Status;
 import br.com.opussoftware.desafio.repository.*;
 import br.com.opussoftware.desafio.repository.AnswerRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,18 +33,28 @@ public class AnswersController {
     }
 
     @GetMapping
-    public Page<Answer> listByQuestion(@RequestParam Long questionId, Pageable pageable) {
-        return answerRepository.findByQuestion_Id(questionId, pageable);
+    public List<Answer> listByQuestion(@RequestParam Long questionId) {
+        return answerRepository.findByQuestion_Id(questionId);
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Answer> createAnswers(@Valid AnswerForm form, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Answer> createAnswers(@RequestBody @Valid AnswerForm form, UriComponentsBuilder uriBuilder) {
         Answer answer = form.assemble(questionRepository, authorRepository);
-        answerRepository.save(answer);
+        if (answer != null) {
+            answerRepository.save(answer);
 
-        URI uri = uriBuilder.path("/answers/{id}").buildAndExpand(answer.getId()).toUri();
-        return ResponseEntity.created(uri).body(answer);
+            Question question = answer.getQuestion();
+            if (question.getStatus() == Status.NOT_ANSWERED) {
+                question.setStatus(Status.ANSWERED);
+                questionRepository.save(question);
+            }
+
+            URI uri = uriBuilder.path("/answers/{id}").buildAndExpand(answer.getId()).toUri();
+            return ResponseEntity.created(uri).body(answer);
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/{id}")

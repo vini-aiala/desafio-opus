@@ -36,7 +36,7 @@ public class SubjectsController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Subject> createSubjects(@Valid SubjectForm form, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Subject> createSubjects(@RequestBody @Valid SubjectForm form, UriComponentsBuilder uriBuilder) {
         Subject subject = form.assemble();
         subjectRepository.save(subject);
 
