@@ -21,9 +21,45 @@ public class QuestionForm {
     private Long userId;
 
     public Question assemble(SubjectRepository subjectRepository, AuthorRepository authorRepository) {
-        Subject subject = subjectRepository.getById(subjectId);
-        Author author = authorRepository.getById(userId);
-        return new Question(title, text, subject, author);
+        try {
+            Subject subject = subjectRepository.findById(subjectId).orElseThrow(IllegalArgumentException::new);
+            Author author = authorRepository.findById(userId).orElseThrow(IllegalArgumentException::new);
+            return new Question(title, text, subject, author);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Long getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Long subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Question update(Long id, QuestionRepository questionRepository) {
